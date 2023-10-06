@@ -1,0 +1,21 @@
+name: Build and test
+run-name: Building and testing ${{ github.ref_name }} for ${{ github.triggering_actor }}
+on: [ push ]
+jobs:
+  Build-And-Test:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          distribution: corretto
+          java-version: 17
+      - uses: gradle/gradle-build-action@v2
+      - run: ./gradlew build
+      - uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          files: '**/build/test-results/test/TEST-*.xml'

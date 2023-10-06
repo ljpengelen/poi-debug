@@ -1,0 +1,46 @@
+plugins {
+    id("java")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ext {
+        poiVersion = '5.2.4'
+
+        junitVersion = '5.10.0'
+
+        lombokVersion = '1.18.30'
+
+        mapstructVersion = '1.5.5.Final'
+    }
+
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    implementation("org.projectlombok:lombok:$lombokVersion")
+
+    implementation("org.mapstruct:mapstruct:$mapstructVersion")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+
+    implementation("org.apache.poi:poi:$poiVersion")
+    implementation("org.apache.poi:poi-ooxml:$poiVersion")
+
+    testImplementation("org.assertj:assertj-core:3.24.2")
+
+    testImplementation(platform("org.mockito:mockito-bom:5.5.0"))
+    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.mockito:mockito-junit-jupiter")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
