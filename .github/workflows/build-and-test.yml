@@ -15,7 +15,7 @@ jobs:
           java-version: 17
       - uses: gradle/gradle-build-action@v2
       - run: ./gradlew build
-      - uses: ljpengelen/junit-xml-action@develop
+      - uses: ljpengelen/junit-xml-action@main
         if: always()
         with:
           folder: build/test-results/test
