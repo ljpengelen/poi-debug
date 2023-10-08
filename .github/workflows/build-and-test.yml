@@ -15,6 +15,10 @@ jobs:
           java-version: 17
       - uses: gradle/gradle-build-action@v2
       - run: ./gradlew build
+      - uses: ljpengelen/junit-xml-action@develop
+        if: always()
+        with:
+          folder: build/test-results/test
       - uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
         with:
